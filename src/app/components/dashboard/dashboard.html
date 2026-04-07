@@ -1,0 +1,53 @@
+<div class="dashboard">
+  <div class="page-header">
+    <h2>Dashboard Overview</h2>
+    <p>Welcome back! Here's what's happening today.</p>
+  </div>
+
+  @if (loading) {
+    <div class="loading">
+      <p>Loading dashboard data...</p>
+    </div>
+  }
+
+  @if (!loading && stats) {
+    <div class="stats-grid">
+      <app-stat-card
+        [title]="'Total Revenue'"
+        [value]="'$' + stats.totalRevenue.toLocaleString()"
+        [icon]="'💰'"
+        [trend]="stats.revenueGrowth"
+        [color]="'#3498db'"
+      />
+
+      <app-stat-card
+        [title]="'Total Orders'"
+        [value]="stats.totalOrders"
+        [icon]="'📦'"
+        [trend]="stats.ordersGrowth"
+        [color]="'#2ecc71'"
+      />
+
+      <app-stat-card
+        [title]="'Total Customers'"
+        [value]="stats.totalCustomers"
+        [icon]="'👥'"
+        [trend]="0"
+        [color]="'#9b59b6'"
+      />
+
+      <app-stat-card
+        [title]="'Total Products'"
+        [value]="stats.totalProducts"
+        [icon]="'📊'"
+        [trend]="0"
+        [color]="'#e67e22'"
+      />
+    </div>
+
+    <div class="chart-section">
+      <h3>Sales Overview</h3>
+      <app-sales-chart />
+    </div>
+  }
+</div>

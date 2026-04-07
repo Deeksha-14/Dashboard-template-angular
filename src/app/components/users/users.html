@@ -1,0 +1,88 @@
+<div class="users-page">
+  <div class="page-header">
+    <h2>Users</h2>
+    <p>Manage and view user information</p>
+  </div>
+
+  @if (loading) {
+    <div class="loading">
+      <p>Loading users...</p>
+    </div>
+  }
+
+  @if (!loading) {
+    <div class="table-container">
+      <table class="users-table">
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>Username</th>
+            <th>Name</th>
+            <th>Email</th>
+            <th>Phone</th>
+            <th>City</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          @for (user of users; track user.id) {
+            <tr>
+              <td>{{ user.id }}</td>
+              <td>{{ user.username }}</td>
+              <td>{{ user.name.firstname }} {{ user.name.lastname }}</td>
+              <td>{{ user.email }}</td>
+              <td>{{ user.phone }}</td>
+              <td>{{ user.address.city }}</td>
+              <td>
+                <button (click)="viewUserDetails(user)" class="btn-view">
+                  View Details
+                </button>
+              </td>
+            </tr>
+          }
+        </tbody>
+      </table>
+    </div>
+  }
+
+  @if (selectedUser) {
+    <div class="modal-overlay" (click)="closeModal()">
+      <div class="modal-content" (click)="$event.stopPropagation()">
+        <div class="modal-header">
+          <h3>User Details</h3>
+          <button (click)="closeModal()" class="close-btn">&times;</button>
+        </div>
+        
+        <div class="modal-body">
+          <div class="detail-row">
+            <strong>ID:</strong>
+            <span>{{ selectedUser.id }}</span>
+          </div>
+          <div class="detail-row">
+            <strong>Username:</strong>
+            <span>{{ selectedUser.username }}</span>
+          </div>
+          <div class="detail-row">
+            <strong>Name:</strong>
+            <span>{{ selectedUser.name.firstname }} {{ selectedUser.name.lastname }}</span>
+          </div>
+          <div class="detail-row">
+            <strong>Email:</strong>
+            <span>{{ selectedUser.email }}</span>
+          </div>
+          <div class="detail-row">
+            <strong>Phone:</strong>
+            <span>{{ selectedUser.phone }}</span>
+          </div>
+          <div class="detail-row">
+            <strong>Address:</strong>
+            <span>
+              {{ selectedUser.address.number }} {{ selectedUser.address.street }}, 
+              {{ selectedUser.address.city }} {{ selectedUser.address.zipcode }}
+            </span>
+          </div>
+        </div>
+      </div>
+    </div>
+  }
+</div>

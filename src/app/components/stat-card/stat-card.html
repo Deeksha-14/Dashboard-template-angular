@@ -1,0 +1,19 @@
+<p>stat-card works!</p>
+<div class="stat-card" [style.border-left-color]="color">
+  <div class="stat-icon" [style.background-color]="color">
+    {{ icon }}
+  </div>
+  
+  <div class="stat-details">
+    <h3 class="stat-title">{{ title }}</h3>
+    <p class="stat-value">{{ value }}</p>
+    
+    @if (trend !== 0) {
+      <div class="stat-trend">
+        <span [class.positive]="trend > 0" [class.negative]="trend < 0">
+          {{ trend > 0 ? '↑' : '↓' }} {{ trend }}%
+        </span>
+      </div>
+    }
+  </div>
+</div>
