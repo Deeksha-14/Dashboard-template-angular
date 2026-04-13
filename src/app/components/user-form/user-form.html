@@ -1,0 +1,260 @@
+<div class="form-container">
+  <div class="form-header">
+    <h2>📝 User Registration Form</h2>
+    <p>Reactive Forms with Validation</p>
+  </div>
+
+  <form [formGroup]="userForm" (ngSubmit)="onSubmit()" class="user-form">
+    
+    <!-- Name Row -->
+    <div class="form-row">
+      <!-- First Name -->
+      <div class="form-group">
+        <label for="firstName">First Name *</label>
+        <input 
+          type="text" 
+          id="firstName"
+          formControlName="firstName"
+          placeholder="Enter first name"
+          [class.error]="hasError('firstName', 'required') || hasError('firstName', 'minlength')"
+        >
+        @if (hasError('firstName', 'required')) {
+          <span class="error-message">First name is required</span>
+        }
+        @if (hasError('firstName', 'minlength')) {
+          <span class="error-message">Minimum 2 characters required</span>
+        }
+      </div>
+
+      <!-- Last Name -->
+      <div class="form-group">
+        <label for="lastName">Last Name *</label>
+        <input 
+          type="text" 
+          id="lastName"
+          formControlName="lastName"
+          placeholder="Enter last name"
+          [class.error]="hasError('lastName', 'required') || hasError('lastName', 'minlength')"
+        >
+        @if (hasError('lastName', 'required')) {
+          <span class="error-message">Last name is required</span>
+        }
+        @if (hasError('lastName', 'minlength')) {
+          <span class="error-message">Minimum 2 characters required</span>
+        }
+      </div>
+    </div>
+
+    <!-- Email & Phone Row -->
+    <div class="form-row">
+      <!-- Email -->
+      <div class="form-group">
+        <label for="email">Email *</label>
+        <input 
+          type="email" 
+          id="email"
+          formControlName="email"
+          placeholder="Enter email address"
+          [class.error]="hasError('email', 'required') || hasError('email', 'email')"
+        >
+        @if (hasError('email', 'required')) {
+          <span class="error-message">Email is required</span>
+        }
+        @if (hasError('email', 'email')) {
+          <span class="error-message">Invalid email format</span>
+        }
+      </div>
+
+      <!-- Phone -->
+      <div class="form-group">
+        <label for="phone">Phone *</label>
+        <input 
+          type="tel" 
+          id="phone"
+          formControlName="phone"
+          placeholder="Enter 10-digit phone"
+          [class.error]="hasError('phone', 'required') || hasError('phone', 'pattern')"
+        >
+        @if (hasError('phone', 'required')) {
+          <span class="error-message">Phone is required</span>
+        }
+        @if (hasError('phone', 'pattern')) {
+          <span class="error-message">Enter valid 10-digit number</span>
+        }
+      </div>
+    </div>
+
+    <!-- Password & Age Row -->
+    <div class="form-row">
+      <!-- Password -->
+      <div class="form-group">
+        <label for="password">Password *</label>
+        <input 
+          type="password" 
+          id="password"
+          formControlName="password"
+          placeholder="Enter password"
+          [class.error]="hasError('password', 'required') || hasError('password', 'minlength')"
+        >
+        @if (hasError('password', 'required')) {
+          <span class="error-message">Password is required</span>
+        }
+        @if (hasError('password', 'minlength')) {
+          <span class="error-message">Minimum 6 characters required</span>
+        }
+      </div>
+
+      <!-- Age -->
+      <div class="form-group">
+        <label for="age">Age *</label>
+        <input 
+          type="number" 
+          id="age"
+          formControlName="age"
+          placeholder="Enter age"
+          [class.error]="hasError('age', 'required') || hasError('age', 'min') || hasError('age', 'max')"
+        >
+        @if (hasError('age', 'required')) {
+          <span class="error-message">Age is required</span>
+        }
+        @if (hasError('age', 'min')) {
+          <span class="error-message">Minimum age is 18</span>
+        }
+        @if (hasError('age', 'max')) {
+          <span class="error-message">Maximum age is 100</span>
+        }
+      </div>
+    </div>
+
+    <!-- Country & Date Row -->
+    <div class="form-row">
+      <!-- Country Dropdown -->
+      <div class="form-group">
+        <label for="country">Country *</label>
+        <select 
+          id="country" 
+          formControlName="country"
+          [class.error]="hasError('country', 'required')"
+        >
+          <option value="">Select Country</option>
+          @for (country of countries; track country) {
+            <option [value]="country">{{ country }}</option>
+          }
+        </select>
+        @if (hasError('country', 'required')) {
+          <span class="error-message">Please select a country</span>
+        }
+      </div>
+
+      <!-- Date of Birth -->
+      <div class="form-group">
+        <label for="dateOfBirth">Date of Birth *</label>
+        <input 
+          type="date" 
+          id="dateOfBirth"
+          formControlName="dateOfBirth"
+          [class.error]="hasError('dateOfBirth', 'required')"
+        >
+        @if (hasError('dateOfBirth', 'required')) {
+          <span class="error-message">Date of birth is required</span>
+        }
+      </div>
+    </div>
+
+    <!-- Gender Radio Buttons -->
+    <div class="form-group">
+      <label>Gender *</label>
+      <div class="radio-group">
+        <label class="radio-label">
+          <input 
+            type="radio" 
+            formControlName="gender" 
+            value="male"
+          >
+          <span>Male</span>
+        </label>
+        <label class="radio-label">
+          <input 
+            type="radio" 
+            formControlName="gender" 
+            value="female"
+          >
+          <span>Female</span>
+        </label>
+        <label class="radio-label">
+          <input 
+            type="radio" 
+            formControlName="gender" 
+            value="other"
+          >
+          <span>Other</span>
+        </label>
+      </div>
+      @if (hasError('gender', 'required')) {
+        <span class="error-message">Please select a gender</span>
+      }
+    </div>
+
+    <!-- Bio Textarea -->
+    <div class="form-group">
+      <label for="bio">Bio (Optional)</label>
+      <textarea 
+        id="bio"
+        formControlName="bio"
+        rows="4"
+        placeholder="Tell us about yourself (max 200 characters)"
+        [class.error]="hasError('bio', 'maxlength')"
+      ></textarea>
+      <span class="char-count">
+        {{ userForm.get('bio')?.value?.length || 0 }} / 200
+      </span>
+      @if (hasError('bio', 'maxlength')) {
+        <span class="error-message">Maximum 200 characters allowed</span>
+      }
+    </div>
+
+    <!-- Terms Checkbox -->
+    <div class="form-group">
+      <label class="checkbox-label">
+        <input 
+          type="checkbox" 
+          formControlName="terms"
+        >
+        <span>I agree to the terms and conditions *</span>
+      </label>
+      @if (hasError('terms', 'required')) {
+        <span class="error-message">You must accept terms and conditions</span>
+      }
+    </div>
+
+    <!-- Form Actions -->
+    <div class="form-actions">
+      <button type="submit" class="btn btn-primary">
+        Submit Form
+      </button>
+      <button type="button" class="btn btn-secondary" (click)="resetForm()">
+        Reset
+      </button>
+      <button type="button" class="btn btn-info" (click)="fillTestData()">
+        Fill Test Data
+      </button>
+    </div>
+
+    <!-- Form Status (for debugging) -->
+    <div class="form-status">
+      <div class="status-item">
+        <strong>Form Valid:</strong> 
+        <span [class.valid]="userForm.valid" [class.invalid]="userForm.invalid">
+          {{ userForm.valid ? '✅' : '❌' }}
+        </span>
+      </div>
+      <div class="status-item">
+        <strong>Form Touched:</strong> {{ userForm.touched ? 'Yes' : 'No' }}
+      </div>
+      <div class="status-item">
+        <strong>Form Dirty:</strong> {{ userForm.dirty ? 'Yes' : 'No' }}
+      </div>
+    </div>
+
+  </form>
+</div>

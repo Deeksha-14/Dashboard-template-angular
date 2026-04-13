@@ -22,6 +22,11 @@ export const routes: Routes = [
       .then(m => m.UsersComponent)
   },
   {
+    path: 'forms',
+    loadComponent: () => import('./components/user-form/user-form')
+      .then(m => m.UserFormComponent)
+  },
+  {
     path: '**',
     redirectTo: '/dashboard'
   }

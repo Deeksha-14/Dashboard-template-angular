@@ -18,6 +18,7 @@ export class SidebarComponent {
   menuItems: MenuItem[] = [
     { label: 'Dashboard', icon: '📊', route: '/dashboard' },
     { label: 'Products', icon: '📦', route: '/products' },
-    { label: 'Users', icon: '👥', route: '/users' }
+    { label: 'Users', icon: '👥', route: '/users' },
+    { label: 'Forms', icon:'📝', route: '/forms'}
   ];
 }
